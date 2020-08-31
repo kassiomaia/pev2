@@ -89,6 +89,13 @@ export function percent(value: number): string {
   return _.round(value * 100) + '%';
 }
 
+export function output(value: string[] | string): string {
+  if (typeof value === 'string') {
+    value = value.split(/\s*,\s*/);
+  }
+  return value.join('<br>');
+}
+
 export function formatNodeProp(key: string, value: any, detail: boolean): string {
   if (_.has(nodePropTypes, key)) {
     if (nodePropTypes[key] === PropType.duration) {
@@ -116,6 +123,8 @@ export function formatNodeProp(key: string, value: any, detail: boolean): string
       return space(value);
     } else if (nodePropTypes[key] === PropType.blocks) {
       return blocks(value);
+    } else if (nodePropTypes[key] === PropType.output) {
+      return output(value);
     }
   }
   return value;
